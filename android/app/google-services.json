@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223247954494",
+    "project_id": "honeycomb-dc0bf",
+    "storage_bucket": "honeycomb-dc0bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223247954494:android:5e1137d1f17078a48cd76f",
+        "android_client_info": {
+          "package_name": "com.boroboro01.comb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-_1UsxlaQwq_vNNhPXMRxULgMrEVyIbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
