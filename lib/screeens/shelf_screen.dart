@@ -36,7 +36,7 @@ class _ShelfScreenState extends State<ShelfScreen> {
               child: Row(
                 children: [
                   Text(
-                    'Hoeny jars',
+                    'Hoeny jar',
                     style: TextStyle(fontSize: 20.0),
                   ),
                 ],
