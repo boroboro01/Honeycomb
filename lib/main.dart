@@ -1,3 +1,4 @@
+import 'package:comb/constants.dart';
 import 'package:flutter/material.dart';
 import 'screeens/welcome_screen.dart';
 import 'screeens/registration_screen.dart';
@@ -20,8 +21,8 @@ class Comb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(),
-      initialRoute: ShelfScreen.id,
+      theme: ThemeData(primarySwatch: Colors.amber),
+      initialRoute: WelcomeScreen.id,
       routes: {
         ShelfScreen.id: (context) => const ShelfScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),

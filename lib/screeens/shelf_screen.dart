@@ -1,8 +1,7 @@
 import 'package:comb/components/honeycomb_list.dart';
-import 'package:comb/screeens/personal_screen.dart';
+import 'package:comb/screeens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:comb/constants.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ShelfScreen extends StatefulWidget {
   static String id = 'shelf_screen';
@@ -16,19 +15,21 @@ class ShelfScreen extends StatefulWidget {
 class _ShelfScreenState extends State<ShelfScreen> {
   int currentPageIndex = 1;
 
+  List<String> titles = ['Profile', 'Honeycomb', 'Settings'];
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
           backgroundColor: lightComb,
-          title: const Text(
-            'Honeycomb',
+          title: Text(
+            titles[currentPageIndex],
           ),
           actions: const []),
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[400],
         onDestinationSelected: (int index) {
           setState(() {
             currentPageIndex = index;

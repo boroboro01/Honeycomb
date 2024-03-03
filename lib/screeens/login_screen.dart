@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.grey[100],
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
+        color: mediumComb,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -101,7 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           try {
                             final user = await _auth.signInWithEmailAndPassword(
                                 email: email, password: password);
-                            Navigator.pushNamed(context, ShelfScreen.id);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, ShelfScreen.id, (route) => false);
                             print('Loggin success');
                             setState(() {
                               showSpinner = false;

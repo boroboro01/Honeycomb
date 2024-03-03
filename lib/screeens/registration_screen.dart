@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:comb/components/rounded_buttoon.dart';
 import 'package:comb/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen';
@@ -27,6 +30,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       backgroundColor: Colors.grey[100],
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
+        color: mediumComb,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -75,12 +79,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     showSpinner = true;
                   });
                   try {
-                    final user = await _auth.createUserWithEmailAndPassword(
-                        email: email, password: password);
-                    Navigator.pushNamed(context, ShelfScreen.id);
+                    //create the user
+                    final UserCredential userCredential =
+                        await _auth.createUserWithEmailAndPassword(
+                            email: email, password: password);
+                    //create a new document
+                    await _firestore
+                        .collection('Users')
+                        .doc(userCredential.user!.email)
+                        .set({
+                      'username': email.split('@')[0],
+                      'bio': 'Writing yourself here'
+                    });
                     setState(() {
                       showSpinner = false;
                     });
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, ShelfScreen.id, (route) => false);
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {
                       print('The password provided is too weak.');
