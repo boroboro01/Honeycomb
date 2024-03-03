@@ -22,47 +22,68 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightComb,
+      backgroundColor: Colors.grey[100],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: SizedBox(
-                    height: 80,
-                    child: Image.asset('images/logo.png'),
-                  ),
-                ),
-                const SizedBox(
-                  child: DefaultTextStyle(
-                    style: TextStyle(
-                      fontSize: 45.0,
-                      fontWeight: FontWeight.w900,
+            Flexible(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Hero(
+                    tag: 'logo',
+                    child: SizedBox(
+                      height: 350,
+                      child: Image.asset('assets/images/logo.png'),
                     ),
-                    child: Text('Honeycomb'),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    child: DefaultTextStyle(
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.w900,
+                        color: lightComb,
+                      ),
+                      child: Text(
+                        'Honeycomb',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 70.0,
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(
-              height: 48.0,
-            ),
-            RoundedButton(
-              color: mediumComb,
-              title: 'Log In',
-              buttonFunction: () =>
-                  Navigator.pushNamed(context, LoginScreen.id),
-            ),
-            RoundedButton(
-              color: darkComb,
-              title: 'Register',
-              buttonFunction: () =>
-                  Navigator.pushNamed(context, RegistrationScreen.id),
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const SizedBox(
+                    height: 70.0,
+                  ),
+                  RoundedButton(
+                    color: mediumComb,
+                    title: 'Start',
+                    subTitle: '',
+                    buttonFunction: () =>
+                        Navigator.pushNamed(context, RegistrationScreen.id),
+                  ),
+                  RoundedButton(
+                    color: const Color.fromRGBO(200, 200, 200, 1),
+                    title: 'Do you have account?',
+                    subTitle: ' Login',
+                    buttonFunction: () =>
+                        Navigator.pushNamed(context, LoginScreen.id),
+                  ),
+                  const SizedBox(
+                    height: 50.0,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'package:comb/components/honeycomb_list.dart';
+import 'package:comb/screeens/personal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:comb/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,84 +14,48 @@ class ShelfScreen extends StatefulWidget {
 }
 
 class _ShelfScreenState extends State<ShelfScreen> {
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  int currentPageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
           backgroundColor: lightComb,
           title: const Text(
             'Honeycomb',
           ),
           actions: const []),
-      backgroundColor: lightHoney,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const Expanded(
-              child: Row(
-                children: [
-                  Text(
-                    'Hoeny jar',
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: ListView(
-                children: const [
-                  Honeycomb(
-                    combName: 'Comb1',
-                  ),
-                  Honeycomb(
-                    combName: 'Comb2',
-                  ),
-                  Honeycomb(
-                    combName: 'Comb3',
-                  ),
-                  Honeycomb(
-                    combName: 'Comb4',
-                  ),
-                  Honeycomb(
-                    combName: 'Comb5',
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: lightComb,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: Colors.grey[300],
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: lightComb,
+        selectedIndex: currentPageIndex,
+        destinations: const [
+          NavigationDestination(
             icon: Icon(Icons.person),
             label: 'Personal',
-            backgroundColor: lightComb,
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: lightComb,
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.settings),
             label: 'Settings',
-            backgroundColor: lightComb,
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: veryLightComb,
-        onTap: _onItemTapped,
       ),
+      body: <Widget>[
+        const PersonalPage(),
+        const honeycombList(),
+        const Text('Settings Page'),
+      ][currentPageIndex],
     );
   }
 }

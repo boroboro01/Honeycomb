@@ -20,12 +20,8 @@ class Comb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light().copyWith(
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.black54),
-        ),
-      ),
-      initialRoute: WelcomeScreen.id,
+      theme: ThemeData(),
+      initialRoute: ShelfScreen.id,
       routes: {
         ShelfScreen.id: (context) => const ShelfScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),

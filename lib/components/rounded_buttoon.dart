@@ -7,10 +7,12 @@ class RoundedButton extends StatelessWidget {
     required this.color,
     required this.title,
     required this.buttonFunction,
+    required this.subTitle,
   });
 
   final Color color;
   final String title;
+  final String subTitle;
   final VoidCallback buttonFunction;
 
   @override
@@ -19,15 +21,18 @@ class RoundedButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
         color: color,
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(8.0),
         elevation: 5.0,
         child: MaterialButton(
           onPressed: buttonFunction,
-          minWidth: 200.0,
+          minWidth: double.infinity,
           height: 42.0,
-          child: Text(
-            title,
-            style: kSmallText,
+          child: RichText(
+            text: TextSpan(style: kSmallText, children: [
+              TextSpan(text: title),
+              TextSpan(
+                  text: subTitle, style: const TextStyle(color: mediumComb)),
+            ]),
           ),
         ),
       ),
