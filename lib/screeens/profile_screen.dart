@@ -1,9 +1,12 @@
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comb/components/picker.dart';
 import 'package:comb/components/text_box.dart';
 import 'package:comb/constants.dart';
 import 'package:comb/screeens/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -19,40 +22,55 @@ class _PersonalPageState extends State<PersonalPage> {
   final userCollection = _firestore.collection('Users');
   final currentUser = FirebaseAuth.instance.currentUser!;
 
+  Uint8List? _image;
+
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
+
   //edit field
   Future<void> editField(String field) async {
     String newValue = '';
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.grey[100],
-        title: Text(
-          "Edit $field",
-          style: const TextStyle(color: Colors.black),
-        ),
-        content: TextField(
-          autofocus: true,
-          style: const TextStyle(color: Colors.black),
-          decoration: InputDecoration(
-            hintText: "Enter new $field",
-            hintStyle: const TextStyle(color: Colors.grey),
+      builder: (context) {
+        String dialogValue = '';
+        return AlertDialog(
+          backgroundColor: Colors.grey[100],
+          title: Text(
+            "Edit $field",
+            style: const TextStyle(color: Colors.black),
           ),
-          onChanged: (value) {
-            newValue = value;
-          },
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+          content: TextField(
+            autofocus: true,
+            style: const TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              hintText: "Enter new $field",
+              hintStyle: const TextStyle(color: Colors.grey),
+            ),
+            onChanged: (value) {
+              dialogValue = value;
+            },
           ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(newValue),
-            child: const Text('Submit'),
-          ),
-        ],
-      ),
-    );
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(dialogValue),
+              child: const Text('Submit'),
+            ),
+          ],
+        );
+      },
+    ).then((value) {
+      newValue = value;
+    });
+
     if (newValue.trim().isNotEmpty) {
       await userCollection.doc(currentUser.email).update({field: newValue});
     }
@@ -73,9 +91,29 @@ class _PersonalPageState extends State<PersonalPage> {
                 const SizedBox(
                   height: 50.0,
                 ),
-                const Icon(
-                  Icons.person,
-                  size: 100.0,
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    _image != null
+                        ? CircleAvatar(
+                            radius: 80,
+                            backgroundImage: MemoryImage(_image!),
+                          )
+                        : CircleAvatar(
+                            radius: 80,
+                            child: Image.asset('assets/images/profile.png'),
+                          ),
+                    Positioned(
+                      bottom: -10.0,
+                      right: 60.0,
+                      child: IconButton(
+                          onPressed: selectImage,
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.grey,
+                          )),
+                    )
+                  ],
                 ),
                 const SizedBox(
                   height: 15.0,

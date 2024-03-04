@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.boroboro01.comb.app-mergeDebugResources-27:/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "/Users/boroboro/.gradle/caches/transforms-3/306e92ab424d79c9c736e926a4976d67/transformed/core-1.10.1/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                }
+            ]
+        }
+    ]
+}

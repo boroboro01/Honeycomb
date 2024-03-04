@@ -21,7 +21,8 @@ class MyTextBox extends StatelessWidget {
       ),
       padding: const EdgeInsets.only(
         left: 15,
-        top: 15,
+        top: 20,
+        bottom: 10,
       ),
       margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Column(
@@ -31,7 +32,7 @@ class MyTextBox extends StatelessWidget {
             children: [
               Text(
                 sectionName,
-                style: const TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey, fontSize: 20),
               ),
             ],
           ),
@@ -40,12 +41,14 @@ class MyTextBox extends StatelessWidget {
             children: [
               Text(
                 text,
+                style: const TextStyle(fontSize: 15.0),
               ),
               IconButton(
                 onPressed: onPressed,
                 icon: const Icon(
                   Icons.edit,
                   color: Colors.grey,
+                  size: 20.0,
                 ),
               ),
             ],
