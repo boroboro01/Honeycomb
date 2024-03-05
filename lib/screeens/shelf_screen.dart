@@ -54,7 +54,7 @@ class _ShelfScreenState extends State<ShelfScreen> {
       ),
       body: <Widget>[
         const PersonalPage(),
-        const honeycombList(),
+        const HoneycombList(),
         const Text('Settings Page'),
       ][currentPageIndex],
     );
