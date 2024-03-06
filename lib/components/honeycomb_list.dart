@@ -1,5 +1,6 @@
 import 'package:comb/components/object_comb.dart';
 import 'package:flutter/material.dart';
+import 'dialog_box.dart';
 
 class HoneycombList extends StatefulWidget {
   const HoneycombList({super.key});
@@ -9,31 +10,39 @@ class HoneycombList extends StatefulWidget {
 }
 
 class _HoneycombListState extends State<HoneycombList> {
+  final _controller = TextEditingController();
+
   List objectList = [
     ["Object1", true],
     ["Object2", false],
   ];
 
+  void saveNewObject() {
+    setState(() {
+      objectList.add([_controller.text, false]);
+      _controller.clear();
+    });
+    Navigator.of(context).pop();
+  }
+
   void createNewObject() {
     showDialog(
       context: context,
       builder: (context) {
-        return const AlertDialog();
+        return DialogBox(
+          controller: _controller,
+          onSave: saveNewObject,
+          onCancel: () => Navigator.of(context).pop(),
+        );
       },
     );
-  }
-
-  void checkBoxChanged(bool? value, int index) {
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          createNewObject;
-        },
+        onPressed: createNewObject,
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
@@ -42,7 +51,7 @@ class _HoneycombListState extends State<HoneycombList> {
           return Objectcomb(
             objectName: objectList[index][0],
             objectCompleted: objectList[index][1],
-            onPressed: (value) => checkBoxChanged(value, index),
+            onPressed: (p0) {},
           );
         },
       ),

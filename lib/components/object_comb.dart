@@ -1,7 +1,12 @@
 import 'package:comb/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Objectcomb extends StatelessWidget {
+FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+class Objectcomb extends StatefulWidget {
   Objectcomb({
     super.key,
     required this.objectName,
@@ -12,6 +17,13 @@ class Objectcomb extends StatelessWidget {
   final String objectName;
   final bool objectCompleted;
   Function(bool?)? onPressed;
+
+  @override
+  State<Objectcomb> createState() => _ObjectcombState();
+}
+
+class _ObjectcombState extends State<Objectcomb> {
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +39,9 @@ class Objectcomb extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(24.0),
           ),
-          onPressed: () => onPressed,
+          onPressed: () => widget.onPressed,
           child: Text(
-            objectName,
+            widget.objectName,
           ),
         ),
       ),

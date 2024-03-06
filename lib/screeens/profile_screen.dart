@@ -1,12 +1,15 @@
 import 'dart:typed_data';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:comb/components/picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:comb/components/text_box.dart';
 import 'package:comb/constants.dart';
 import 'package:comb/screeens/welcome_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:comb/resources/add_data.dart';
+import 'package:comb/components/image_selector.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -21,14 +24,18 @@ class _PersonalPageState extends State<PersonalPage> {
   final _auth = FirebaseAuth.instance;
   final userCollection = _firestore.collection('Users');
   final currentUser = FirebaseAuth.instance.currentUser!;
-
   Uint8List? _image;
 
   void selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
+    Uint8List img = await imageSelector(ImageSource.gallery);
     setState(() {
       _image = img;
     });
+    saveProfile();
+  }
+
+  void saveProfile() async {
+    String resp = await StoreData().saveData(file: _image!);
   }
 
   //edit field
@@ -99,9 +106,10 @@ class _PersonalPageState extends State<PersonalPage> {
                             radius: 80,
                             backgroundImage: MemoryImage(_image!),
                           )
-                        : CircleAvatar(
+                        : const CircleAvatar(
                             radius: 80,
-                            child: Image.asset('assets/images/profile.png'),
+                            backgroundImage: NetworkImage(
+                                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
                           ),
                     Positioned(
                       bottom: -10.0,
