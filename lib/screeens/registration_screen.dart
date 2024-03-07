@@ -89,7 +89,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         .doc(userCredential.user!.email)
                         .set({
                       'username': email.split('@')[0],
-                      'bio': 'Writing yourself here'
+                      'bio': 'Writing yourself here',
+                      'imageLink': null,
                     });
                     setState(() {
                       showSpinner = false;

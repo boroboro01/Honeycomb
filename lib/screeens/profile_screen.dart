@@ -1,12 +1,10 @@
 import 'dart:typed_data';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:comb/components/text_box.dart';
 import 'package:comb/constants.dart';
 import 'package:comb/screeens/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:comb/resources/add_data.dart';
 import 'package:comb/components/image_selector.dart';
@@ -30,8 +28,8 @@ class _PersonalPageState extends State<PersonalPage> {
     Uint8List img = await imageSelector(ImageSource.gallery);
     setState(() {
       _image = img;
+      saveProfile();
     });
-    saveProfile();
   }
 
   void saveProfile() async {
@@ -87,12 +85,11 @@ class _PersonalPageState extends State<PersonalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<DocumentSnapshot>(
-        stream:
-            _firestore.collection('Users').doc(currentUser.email).snapshots(),
+        stream: userCollection.doc(currentUser.email).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
-
+            print(userData['imageLink']);
             return ListView(
               children: [
                 const SizedBox(
@@ -101,10 +98,11 @@ class _PersonalPageState extends State<PersonalPage> {
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    _image != null
+                    userData['imageLink'] != null
                         ? CircleAvatar(
                             radius: 80,
-                            backgroundImage: MemoryImage(_image!),
+                            backgroundImage:
+                                NetworkImage(userData['imageLink']),
                           )
                         : const CircleAvatar(
                             radius: 80,

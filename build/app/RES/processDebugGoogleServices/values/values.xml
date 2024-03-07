@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="gcm_defaultSenderId" translatable="false">223247954494</string>
-    <string name="google_api_key" translatable="false">AIzaSyD-_1UsxlaQwq_vNNhPXMRxULgMrEVyIbE</string>
-    <string name="google_app_id" translatable="false">1:223247954494:android:5e1137d1f17078a48cd76f</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD-_1UsxlaQwq_vNNhPXMRxULgMrEVyIbE</string>
-    <string name="google_storage_bucket" translatable="false">honeycomb-dc0bf.appspot.com</string>
-    <string name="project_id" translatable="false">honeycomb-dc0bf</string>
-</resources>
