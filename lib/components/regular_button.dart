@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DialogButton extends StatelessWidget {
-  DialogButton({super.key, required this.text, required this.onPressed});
+class RegularButton extends StatelessWidget {
+  RegularButton({super.key, required this.text, required this.onPressed});
   final String text;
   VoidCallback onPressed;
 

@@ -1,4 +1,4 @@
-import 'package:comb/components/honeycomb_list.dart';
+import 'package:comb/screeens/honeycomb_list.dart';
 import 'package:comb/screeens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:comb/constants.dart';

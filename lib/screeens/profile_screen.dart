@@ -7,7 +7,7 @@ import 'package:comb/screeens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:comb/resources/add_data.dart';
-import 'package:comb/components/image_selector.dart';
+import 'package:comb/resources/image_selector.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -89,7 +89,6 @@ class _PersonalPageState extends State<PersonalPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
-            print(userData['imageLink']);
             return ListView(
               children: [
                 const SizedBox(

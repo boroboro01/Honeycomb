@@ -1,6 +1,6 @@
 import 'package:comb/constants.dart';
 import 'package:flutter/material.dart';
-import 'dialog_button.dart';
+import 'regular_button.dart';
 
 class DialogBox extends StatelessWidget {
   DialogBox({
@@ -31,14 +31,14 @@ class DialogBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                DialogButton(
+                RegularButton(
                   text: "Cancel",
                   onPressed: onCancel,
                 ),
                 const SizedBox(
                   width: 10.0,
                 ),
-                DialogButton(
+                RegularButton(
                   text: "Submit",
                   onPressed: onSave,
                 ),

@@ -170,6 +170,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "flutter_slidable",
+      "rootUri": "file:///Users/boroboro/.pub-cache/hosted/pub.dev/flutter_slidable-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/3.13.1/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -290,6 +296,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "nested",
+      "rootUri": "file:///Users/boroboro/.pub-cache/hosted/pub.dev/nested-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///Users/boroboro/.pub-cache/hosted/pub.dev/path-1.8.3",
       "packageUri": "lib/",
@@ -300,6 +312,12 @@
       "rootUri": "file:///Users/boroboro/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///Users/boroboro/.pub-cache/hosted/pub.dev/provider-6.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "sky_engine",
@@ -368,7 +386,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-03-07T02:38:02.362811Z",
+  "generated": "2024-03-07T10:34:38.096909Z",
   "generator": "pub",
   "generatorVersion": "3.1.0"
 }
