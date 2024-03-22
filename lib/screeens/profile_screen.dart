@@ -89,6 +89,7 @@ class _PersonalPageState extends State<PersonalPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
+            print(userData.length);
             return ListView(
               children: [
                 const SizedBox(

@@ -1,33 +1,48 @@
-import 'package:comb/constants.dart';
-import 'package:comb/screeens/honeycomb_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-
-FirebaseFirestore _firestore = FirebaseFirestore.instance;
+import 'package:comb/screeens/honeycomb_screen.dart';
+import 'package:flutter/material.dart';
 
 class GoalComb extends StatelessWidget {
-  GoalComb({
+  const GoalComb({
     super.key,
-    required this.goalName,
+    required this.goalTitle,
+    required this.goalWriter,
     required this.goalCompleted,
-    required this.goalNumber,
-    required this.deleteCallback,
+    required this.goalIndex,
+    required this.goalStartTime,
   });
 
-  final String goalName;
+  final String goalTitle;
+  final String goalWriter;
+  final Timestamp goalStartTime;
   final bool goalCompleted;
-  final int goalNumber;
-  final Function deleteCallback;
+  final int goalIndex;
 
-  final _auth = FirebaseAuth.instance;
-  final _controller = TextEditingController();
+  factory GoalComb.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return GoalComb(
+        goalTitle: data?['title'],
+        goalWriter: data?['writer'],
+        goalCompleted: data?['completed'],
+        goalIndex: data?['index'],
+        goalStartTime: data?['timestamp']);
+  }
+  Map<String, dynamic> toFirestore() {
+    return {
+      "title": goalTitle,
+      "writer": goalWriter,
+      "completed": goalCompleted,
+      "index": goalIndex,
+      "timestamp": goalStartTime,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
-    int goalIndex = goalNumber + 1;
+    int goalNumber = goalIndex + 1;
     return Padding(
       padding: const EdgeInsets.only(
         left: 25.0,
@@ -42,17 +57,18 @@ class GoalComb extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => HoneycombScreen(
                     goalComb: GoalComb(
-                      goalName: goalName,
+                      goalTitle: goalTitle,
+                      goalWriter: goalWriter,
                       goalCompleted: goalCompleted,
-                      goalNumber: goalIndex,
-                      deleteCallback: deleteCallback,
+                      goalIndex: goalNumber,
+                      goalStartTime: goalStartTime,
                     ),
                   )));
         },
         child: Column(
           children: [
             Text(
-              goalName,
+              goalTitle,
             ),
             Text(
               '$goalIndex',

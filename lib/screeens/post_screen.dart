@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:comb/components/regular_button.dart';
 import 'package:comb/constants.dart';
-import 'package:comb/resources/goal.dart';
-import 'package:comb/resources/goal_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class PostScreen extends StatelessWidget {
   static String id = 'post_screen';
@@ -16,6 +12,21 @@ class PostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String newGoalTitle = '';
+    final CollectionReference goalsCollection =
+        FirebaseFirestore.instance.collection('Goals');
+    final currentUser = FirebaseAuth.instance.currentUser!;
+
+    Future<void> addGoal() {
+      return goalsCollection
+          .add({
+            'goalTitle': newGoalTitle,
+            'writer': currentUser.email,
+            'goalCompleted': false,
+            'timestamp': FieldValue.serverTimestamp(),
+          })
+          .then((value) => print("Goal Added"))
+          .catchError((error) => print("Failed to add goal: $error"));
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -58,12 +69,12 @@ class PostScreen extends StatelessWidget {
           // Text(time),
           Center(
             child: RegularButton(
-                text: 'Save',
-                onPressed: () {
-                  Provider.of<GoalData>(context, listen: false)
-                      .addGoal(newGoalTitle);
-                  Navigator.pop(context);
-                }),
+              text: 'Save',
+              onPressed: () {
+                addGoal();
+                Navigator.pop(context);
+              },
+            ),
           ),
         ],
       ),

@@ -1,10 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comb/components/goal_comb.dart';
-import 'package:comb/constants.dart';
-import 'package:comb/resources/goal_data.dart';
 import 'package:comb/screeens/honeycomb_screen.dart';
-import 'package:comb/screeens/post_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'screeens/welcome_screen.dart';
 import 'screeens/registration_screen.dart';
 import 'screeens/login_screen.dart';
@@ -17,35 +14,33 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const Comb());
+  runApp(Comb());
 }
 
 class Comb extends StatelessWidget {
-  const Comb({Key? key}) : super(key: key);
-
+  Comb({Key? key}) : super(key: key);
+  Timestamp timestamp = Timestamp.now();
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => GoalData(),
-      child: MaterialApp(
-        theme: ThemeData(primarySwatch: Colors.amber),
-        initialRoute: WelcomeScreen.id,
-        routes: {
-          ShelfScreen.id: (context) => const ShelfScreen(),
-          WelcomeScreen.id: (context) => const WelcomeScreen(),
-          LoginScreen.id: (context) => const LoginScreen(),
-          RegistrationScreen.id: (context) => const RegistrationScreen(),
-          HoneycombScreen.id: (context) => HoneycombScreen(
-                goalComb: GoalComb(
-                  goalName: 'Nothing',
-                  goalCompleted: false,
-                  goalNumber: 0,
-                  deleteCallback: () {},
-                ),
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.amber),
+      initialRoute: WelcomeScreen.id,
+      routes: {
+        ShelfScreen.id: (context) => const ShelfScreen(),
+        WelcomeScreen.id: (context) => const WelcomeScreen(),
+        LoginScreen.id: (context) => const LoginScreen(),
+        RegistrationScreen.id: (context) => const RegistrationScreen(),
+        HoneycombScreen.id: (context) => HoneycombScreen(
+              goalComb: GoalComb(
+                goalTitle: 'Nothing',
+                goalWriter: 'Anonymous',
+                goalCompleted: false,
+                goalStartTime: timestamp,
+                goalIndex: 0,
               ),
-          // PostScreen.id: (context) => const PostScreen(),
-        },
-      ),
+            ),
+        // PostScreen.id: (context) => const PostScreen(),
+      },
     );
   }
 }
