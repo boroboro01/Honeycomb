@@ -13,10 +13,10 @@ class HoneycombList extends StatefulWidget {
 
 class _HoneycombListState extends State<HoneycombList> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<GoalComb> goalList = [];
 
   @override
   Widget build(BuildContext context) {
-    List<GoalComb> goalList = [];
     final goals = _firestore.collection('Goals');
     final goal1 = <String, dynamic>{
       'goalTitle': 'Example',
@@ -59,24 +59,47 @@ class _HoneycombListState extends State<HoneycombList> {
     print('goalListLength : ${goalList.length}');
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const PostScreen(),
-            ),
-          );
-        },
-        // onPressed: createNewObject,
-        child: const Icon(Icons.add),
-      ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return Text(goalList[index].goalTitle);
-        },
-        itemCount: goalList.length,
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const PostScreen(),
+              ),
+            );
+          },
+          // onPressed: createNewObject,
+          child: const Icon(Icons.add),
+        ),
+        body: FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.none &&
+                snapshot.hasData == null) {
+              return const Text('There is no data');
+            }
+            return ListView.builder(
+              itemCount: goalList.length,
+              itemBuilder: (context, index) {
+                final goal = goalList[index];
+                return ListTile(
+                  title: Text(goal.goalTitle),
+                  subtitle: Text(goal.goalWriter),
+                );
+              },
+            );
+          },
+,
+        )
+        // body: ListView.builder(
+        //   itemCount: goalList.length,
+        //   itemBuilder: (context, index) {
+        //     final goal = goalList[index];
+        //     return ListTile(
+        //       title: Text(goal.goalTitle),
+        //       subtitle: Text(goal.goalWriter),
+        //     );
+        //   },
+        // ),
+        );
   }
 }
